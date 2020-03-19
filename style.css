@@ -1,0 +1,70 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: sans-serif;
+    background: #f4f4f4;
+}
+.calculator {
+    width: 250px;
+    height: 350px;
+    margin: 5rem auto;
+}
+.calculator-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+.calculator-display {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-around; */
+    padding: 0 0.3rem;
+    background: #fff;
+    width: 100%;
+    height: 50px;
+    text-align: right;
+}
+button[value="0"] {
+    grid-column: 1 / span 2;
+}
+.btn {
+    height: 50px;
+    padding: 5px;
+    border: none;
+}
+.btn:hover {
+    background: #111;
+    color: #fff;
+}
+.btn-number {
+    background: #fff;
+}
+.btn-symbol,
+.btn-clear,
+.btn-result {
+    background: #333;
+    color: #fff;
+}
+.btn-selected {
+    background: #666;
+}
+.previousNumber {
+    margin: 0.3rem 0;
+    font-size: 0.6rem;
+}
+.currentNumber {
+    position: absolute;
+    bottom: 5px;
+    right: 4px;
+    font-size: 1.3rem;
+}
+[id="÷"],
+[id="+"],
+[id="-"],
+[id="="],
+[id="×"] {
+    font-size: 1.2rem;
+}
