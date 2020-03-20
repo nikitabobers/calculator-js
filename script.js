@@ -2,6 +2,7 @@
 const btnNumber = document.querySelectorAll(".btn-number");
 const btnSymbol = document.querySelectorAll(".btn-symbol");
 const btnClear = document.querySelector(".btn-clear");
+const btnDelete = document.querySelector(".btn-delete");
 const btnResult = document.querySelector(".btn-result");
 // Display
 const currentNumberDisplay = document.querySelector(".currentNumber");
@@ -18,6 +19,9 @@ class Calculator {
         this.previousNumber = "";
         this.operation = undefined;
         this.displayUpdate();
+    }
+    delete() {
+        this.currentNumber = this.currentNumber.toString().slice(0, -1);
     }
     addNumber(number) {
         if (this.currentNumber.includes(".") && number === ".") return;
@@ -73,11 +77,39 @@ class Calculator {
         }
         this.clear();
         this.currentNumber = result;
+        btnClear.style.display = "initial";
+        btnDelete.style.display = "none";
     }
-    displayNumber() {}
+    showClearAllBtn() {
+        btnClear.style.display = "initial";
+        btnDelete.style.display = "none";
+    }
+    displayNumber(number) {
+        const stringNumber = number.toString();
+        const integerNumber = parseFloat(stringNumber.split(".")[0]);
+        const decimalNumber = stringNumber.split(".")[1];
+        let integerDisplay;
+        if (isNaN(integerNumber)) {
+            integerDisplay = "";
+        } else {
+            integerDisplay = integerNumber.toLocaleString("en", { maximumFractionDigits: 0 });
+        }
+        if (decimalNumber != null) {
+            return `${integerDisplay}.${decimalNumber}`;
+        } else {
+            return integerDisplay;
+        }
+    }
+
     displayUpdate() {
-        this.currentNumberDisplay.innerText = this.currentNumber;
-        this.previousNumberDisplay.innerText = this.previousNumber;
+        if (this.currentNumber > 0) {
+            btnClear.style.display = "none";
+            btnDelete.style.display = "initial";
+        } else if (this.currentNumber <= 0) {
+            this.showClearAllBtn();
+        }
+        this.currentNumberDisplay.innerText = this.displayNumber(this.currentNumber);
+        this.previousNumberDisplay.innerText = this.displayNumber(this.previousNumber);
     }
 }
 
@@ -102,8 +134,14 @@ btnSymbol.forEach(button => {
 // Clear button
 btnClear.addEventListener("click", () => calculator.clear());
 
+btnDelete.addEventListener("click", () => {
+    calculator.delete();
+    calculator.displayUpdate();
+});
+
 // Result Button
 btnResult.addEventListener("click", () => {
     calculator.calculate();
     calculator.displayUpdate();
+    calculator.showClearAllBtn();
 });

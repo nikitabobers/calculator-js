@@ -43,7 +43,8 @@ button[value="0"] {
 }
 .btn-symbol,
 .btn-clear,
-.btn-result {
+.btn-result,
+.btn-delete {
     background: #333;
     color: #fff;
 }
@@ -67,3 +68,10 @@ button[value="0"] {
 [id="×"] {
     font-size: 1.2rem;
 }
+
+.btn-delete {
+    display: none;
+}
+/* .btn-clear {
+    display: initial;
+} */
