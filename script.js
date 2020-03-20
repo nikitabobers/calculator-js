@@ -28,9 +28,17 @@ class Calculator {
         if (this.previousNumber !== "") {
             this.calculate();
         }
+
         this.operation = operation;
-        this.previousNumber = `${this.currentNumber} ${this.operation}`;
-        this.currentNumber = "";
+
+        if (this.operation === "%") {
+            this.currentNumber = this.currentNumber / 100;
+        } else if (this.operation === "+/-") {
+            this.currentNumber = this.currentNumber * -1;
+        } else {
+            this.previousNumber = `${this.currentNumber} ${this.operation}`;
+            this.currentNumber = "";
+        }
     }
     calculate() {
         // Displayed result
@@ -59,12 +67,6 @@ class Calculator {
                 break;
             case "÷":
                 result = previousNumber / currentNumber;
-                break;
-            case "%":
-                result = currentNumber / 100;
-                break;
-            case "+/-":
-                result = currentNumber * -1;
                 break;
             default:
                 return;
